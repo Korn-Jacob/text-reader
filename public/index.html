@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			I pronounce things for you!
+		</title>
+	</head>
+	<body>
+		<h1>Text Reader</h1>
+		<p>
+			Warning: I may mispronounce some things!
+		</p>
+		<form action="/pronounce" method="POST">
+			<label for="input">Pronounce:</label>
+			<input id="input" name="toPronounce" required>
+			<br>
+			<input type="submit" value="Pronounce!">
+		</form>
+		<div id="p"></div>
+		<script>
+			let ipa = new URLSearchParams(window.location.search).get('ipa');
+			if (ipa) {
+				document.getElementById("p").innerHTML = ipa + "<button onclick=copyText()>Copy</button></p><br><a href='http://ipa-reader.xyz/?text=" + ipa + "&voice=Joanna' target='_blank'>read it here since i can't pay for aws</a>"
+			}
+			function copyText() {
+				navigator.clipboard.writeText(ipa);
+			}
+		</script>
+	</body>
+</html>
+

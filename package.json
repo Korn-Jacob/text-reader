@@ -1,0 +1,19 @@
+{
+  "name": "text-reader",
+  "version": "1.0.0",
+  "description": "this will read text and attempt to pronounce it extremely poorly",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.7.1",
+    "jquery-csv": "^1.0.40"
+  }
+}
