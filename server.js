@@ -15,7 +15,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/pronounce", (req, res) => {
-    res.redirect("/?ipa=" + misprounounceString(req.body.toPronounce));
+    try {
+        res.redirect("/?ipa=" + misprounounceString(req.body.toPronounce));
+    } catch (e) {
+        res.redirect("/?error=true");
+    }
 })
 
 // stuff that does things

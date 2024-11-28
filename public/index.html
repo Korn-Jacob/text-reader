@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>
-			I pronounce things for you!
-		</title>
+		<title>I pronounce things for you!</title>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<h1>Text Reader</h1>
@@ -11,19 +10,41 @@
 			Warning: I may mispronounce some things!
 		</p>
 		<form action="/pronounce" method="POST">
-			<label for="input">Pronounce:</label>
-			<input id="input" name="toPronounce" required>
+			<textarea id="input" name="toPronounce" required></textarea>
 			<br>
-			<input type="submit" value="Pronounce!">
+			<input type="submit" value="Pronounce!" id="submit">
 		</form>
-		<div id="p"></div>
+		<div id="p">
+			<div class="horiz-align">
+				<h4><a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet" target="_blank" style="color: #9682ff;">IPA</a> for pronounciation:</h4>
+				<p id="ipa"></p>
+			</div>
+			<div class="horiz-align">
+				<button onclick=copyText()>Copy IPA</button>
+				<button onclick=goToIpaReader()>Hear it spoken!</button>
+			</div>
+		</div>
 		<script>
-			let ipa = new URLSearchParams(window.location.search).get('ipa');
-			if (ipa) {
-				document.getElementById("p").innerHTML = ipa + "<button onclick=copyText()>Copy</button></p><br><a href='http://ipa-reader.xyz/?text=" + ipa + "&voice=Joanna' target='_blank'>read it here since i can't pay for aws</a>"
+			let params = new URLSearchParams(window.location.search);
+			let ipa = params.get("ipa");
+			let error = params.get("error");
+
+			if (error) {
+				alert("uh oh! an error occured. please do not use punctuation or non-alphabetic characters such as line breaks or numbers, i do not know how to pronounce those.");
+				window.location.href = "/";
+			}
+
+			if (!ipa) {
+				document.body.removeChild(document.getElementById("p"));
+			} else {
+				document.getElementById("ipa").innerText = ipa;
 			}
 			function copyText() {
 				navigator.clipboard.writeText(ipa);
+				alert("copied!");
+			}
+			function goToIpaReader() {
+				window.open("http://ipa-reader.xyz/?text=" + ipa + "&voice=Joanna")
 			}
 		</script>
 	</body>
